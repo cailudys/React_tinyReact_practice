@@ -4,6 +4,7 @@ export default function createElement(type, props, ...children) {
   /** 最简单的virtual DOM存在的问题
    * 1. 文本节点，以字符串表现的，不符合要求，应该也是以对象的形式表现出来。
    * 2. 布尔值为flase的时候也被当做文本节点被处理掉了。（要把 null false true 刨除出去）因为这些是不会在页面中呈现的。
+   * 3. 暂时还不能通过props.children 来拿到子节点。
    */
 
   // 处理方法：循环遍历children，如果当前项是对象不处理，如果当前项不是对象，则说明是文本节点，则处理成文本节点对应对象。
@@ -24,7 +25,8 @@ export default function createElement(type, props, ...children) {
   // 返回值是虚拟DOM,实际就是一个JavaScript对象。
   return {
     type,
-    props,
+    // 使用assign方法，来合并children和props，从而使可以使用props.children来拿到子属性。
+    props: Object.assign({ children: childElements }, props),
     children: childElements,
   };
 }
