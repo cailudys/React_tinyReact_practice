@@ -18,4 +18,5 @@ const virtualDOM = (
   </div>
 );
 
+// 当执行到JSX代码的时候，因为在babel中配置了，所以会自动转化tinyReact的调用，最后返回的是虚拟DOM.
 console.log(virtualDOM);
