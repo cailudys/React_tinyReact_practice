@@ -1,10 +1,18 @@
 import diff from "./diff";
 
-// 方法的作用是把 virtualDOM对象转化为真实的DOM对象，并将真实DOM对象展示在页面当中。
-// 还需要考虑的是，有没有旧的DOM，如果有则需要对比，如果没有直接放置到文档的节点上。
+/**
+ * render 方法的作用是：
+ * 1. 使用 diff 算法，计算出前后两份virtualDOM之间的变化。
+ * 2. 把变化部分的virtualDOM转化为真实dom（创建真实dom）
+ * 3. 然后把真实dom插入到文档流中（渲染页面）。
+ */
+
+/**
+ * render 方法的参数：
+ * @param {*} virtualDOM  最新的virtualDOM树
+ * @param {*} container 当前virtualDOM要挂载到的容器（一个真实DOM）
+ * @param {*} oldDOM  旧的virtualDOM树
+ */
 export default function render(virtualDOM, container, oldDOM) {
-  // 用diff方法在做比对的事情。
   diff(virtualDOM, container, oldDOM);
-  // 首先我应该知道，怎样才能在页面上显示内容。分为下面两个步骤。
-  // 1. 创建真实的DOM节点 2.把真实的DOM挂载到document中的节点上。
 }

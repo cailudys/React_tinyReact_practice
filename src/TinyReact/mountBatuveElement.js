@@ -1,6 +1,9 @@
 import mountElement from "./mountElement";
 
-// 挂载 普通虚拟DOM的情况 (将普通的虚拟DOM转化为真实的DOM，并挂载到文档中)
+/**
+ * monutNativeElement方法的作用：
+ * 1. 将普通的虚拟DOM转化为真实的DOM，并挂载到文档中
+ */
 export default function monutNativeElement(virtualDOM, container) {
   let newElement = null;
   if (virtualDOM.type == "text") {
