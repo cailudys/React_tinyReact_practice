@@ -44,9 +44,17 @@ function Heart(props) {
 // TinyReact.render(<Heart title="hello React" />, root);
 
 class Alert extends TinyReact.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
-    return <div>Hello React</div>;
+    return (
+      <div>
+        {this.props.name}
+        {this.props.age}
+      </div>
+    );
   }
 }
 
-TinyReact.render(<Alert />, root);
+TinyReact.render(<Alert name="张三" age={20} />, root);

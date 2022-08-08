@@ -40,7 +40,7 @@ function buildFunctionComponent(virtualDOM) {
  * 处理类组件，拿到组件返回的virtualDOM.
  */
 function buildClassComponent(virtualDOM) {
-  const component = new virtualDOM.type();
+  const component = new virtualDOM.type(virtualDOM.props);
   const nextVirtualDOM = component.render();
   return nextVirtualDOM;
 }
