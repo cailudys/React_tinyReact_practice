@@ -19,9 +19,9 @@ export default function mountComponent(virtualDOM, container) {
   // 递归调用，判断nextVirtualDOM是否是组件。
   if (isFunction(nextVirtualDOM)) {
     mountComponent(nextVirtualDOM, container);
+  } else {
+    monutNativeElement(nextVirtualDOM, container);
   }
-
-  monutNativeElement(nextVirtualDOM, container);
 }
 
 /**
@@ -30,5 +30,6 @@ export default function mountComponent(virtualDOM, container) {
  */
 //
 function buildFunctionComponent(virtualDOM) {
-  return virtualDOM.type();
+  // 把 组件对象 的 props 传入 函数中
+  return virtualDOM.type(virtualDOM.props || {});
 }

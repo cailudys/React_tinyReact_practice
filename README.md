@@ -1,5 +1,7 @@
 # 1.JSX到底是什么
 
+> jsx语法让我们可用向写html那样，去写React元素。JSX代码运行时会被babel编译，返回值就是一个JavaScript对象（也就是我们说的virtualDOM）
+
 # 2.真实DOM操作存在的问题
 
 # 3.实现TinyReact.createElement方法
@@ -22,6 +24,19 @@
 
 # 5.类组件和函数组件对应的virtualDOM和普通元素对应的virtualDOM的区别
 
+```js
+// 组件的Virtual DOM
+{
+    type: f function(){}
+    props:{}
+    children:[]
+}
+```
+
+
+
 类组件和函数组件对应的virtualDOM的type的值都是一个函数；而通元素对应的virtualDOM的type的值是元素标签名。
 
 另一个角度来看，元素对应的virtualDOM是直接可用的；而组件对应的virtualDOM不能直接使用，没有直接体现出内部结构。
+
+> JSX代码在运行时才会被babel转化为virtualDOM,所以函数组件需要被运行才能拿到virtualDOM。
