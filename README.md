@@ -10,4 +10,8 @@
 
 # 实现TinyReact.render方法
 
-方法的作用是把 virtualDOM对象转化为真实的DOM对象，并将真实DOM对象展示在页面当中。
+> 方法的作用是把 virtualDOM对象转化为真实的DOM对象，并将真实DOM对象展示在页面当中。
+
+### 实现步骤：
+
+1.把虚拟dom转化为真实dom=》2.在真实dom上添加对应的属性

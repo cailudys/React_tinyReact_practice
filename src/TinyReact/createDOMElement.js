@@ -1,4 +1,5 @@
 import mountElement from "./mountElement";
+import updateNodeElement from "./updateNodeElement";
 
 /**
  * createDOMElement方法的作用：
@@ -12,6 +13,7 @@ export default function createDOMElement(virtualDOM) {
   } else {
     // 元素节点
     newElement = document.createElement(virtualDOM.type);
+    updateNodeElement(newElement, virtualDOM);
   }
   // 递归创建子节点
   virtualDOM.children.forEach((child) => {
