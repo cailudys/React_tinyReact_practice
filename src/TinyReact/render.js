@@ -9,7 +9,7 @@ import diff from "./diff";
 
 /**
  * render 方法的参数：
- * @param {*} virtualDOM  最新的virtualDOM树
+ * @param {*} virtualDOM  最新的virtualDOM树 (更准确的理解是，react元素或者组件，当然他们都最终变成virtualDOM)
  * @param {*} container 当前virtualDOM要挂载到的容器（一个真实DOM）
  * @param {*} oldDOM  旧的virtualDOM树
  */

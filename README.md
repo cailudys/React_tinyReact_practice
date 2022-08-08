@@ -23,3 +23,5 @@
 # 5.类组件和函数组件对应的virtualDOM和普通元素对应的virtualDOM的区别
 
 类组件和函数组件对应的virtualDOM的type的值都是一个函数；而通元素对应的virtualDOM的type的值是元素标签名。
+
+另一个角度来看，元素对应的virtualDOM是直接可用的；而组件对应的virtualDOM不能直接使用，没有直接体现出内部结构。

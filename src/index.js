@@ -27,9 +27,12 @@ const virtualDOM = (
 // render方法的第一个参数就是 virtualDOM
 // render方法的第二个参数是 DOM容器
 // TinyReact.render(virtualDOM, root);
+function DEMO() {
+  return <div>&hearts;</div>;
+}
 
 function Heart() {
-  return <div>&hearts;</div>;
+  return <DEMO />;
 }
 
 TinyReact.render(<Heart />, root);
