@@ -7,3 +7,7 @@
 > 然后还要刨除JSX中的 null false true 这三个值。 （map方法 => reduce方法）
 >
 >  最后还要在props对象下面添加children属性。 
+
+# 实现TinyReact.render方法
+
+方法的作用是把 virtualDOM对象转化为真实的DOM对象，并将真实DOM对象展示在页面当中。

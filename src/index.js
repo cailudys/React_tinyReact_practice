@@ -1,5 +1,7 @@
 import TinyReact from "./TinyReact";
 
+const root = document.getElementById("root");
+
 const virtualDOM = (
   <div className="container">
     <h1>你好 Tiny React</h1>
@@ -20,3 +22,8 @@ const virtualDOM = (
 
 // 当执行到JSX代码的时候，因为在babel中配置了，所以会自动转化tinyReact的调用，最后返回的是虚拟DOM.
 console.log(virtualDOM);
+
+// 把virtualDOM转换为真实的DOM
+// render方法的第一个参数就是 virtualDOM
+// render方法的第二个参数是 DOM容器
+TinyReact.render(virtualDOM, root);
