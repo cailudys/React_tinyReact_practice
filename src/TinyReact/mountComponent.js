@@ -10,10 +10,12 @@ export default function mountComponent(virtualDOM, container) {
   let nextVirtualDOM = null;
   // 判断组件是类组件还是函数组件
   if (isFunctionComponent(virtualDOM)) {
+    // 函数组件
     nextVirtualDOM = buildFunctionComponent(virtualDOM);
     console.log(nextVirtualDOM);
   } else {
-    console.log("类组件");
+    // 类组件
+    nextVirtualDOM = buildClassComponent(virtualDOM);
   }
 
   // 递归调用，判断nextVirtualDOM是否是组件。
@@ -28,8 +30,17 @@ export default function mountComponent(virtualDOM, container) {
  * buildFunctionComponent方法的作用：
  * 处理函数组件，拿到组件返回的virtualDOM.
  */
-//
 function buildFunctionComponent(virtualDOM) {
   // 把 组件对象 的 props 传入 函数中
   return virtualDOM.type(virtualDOM.props || {});
+}
+
+/**
+ * buildClassComponent方法的作用：
+ * 处理类组件，拿到组件返回的virtualDOM.
+ */
+function buildClassComponent(virtualDOM) {
+  const component = new virtualDOM.type();
+  const nextVirtualDOM = component.render();
+  return nextVirtualDOM;
 }
