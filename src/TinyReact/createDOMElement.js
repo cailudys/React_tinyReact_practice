@@ -1,10 +1,10 @@
 import mountElement from "./mountElement";
 
 /**
- * monutNativeElement方法的作用：
- * 1. 将普通的虚拟DOM转化为真实的DOM，并挂载到文档中
+ * createDOMElement方法的作用：
+ * 1. 将普通的虚拟DOM转化为真实的DOM。并返回出去。
  */
-export default function monutNativeElement(virtualDOM, container) {
+export default function createDOMElement(virtualDOM) {
   let newElement = null;
   if (virtualDOM.type == "text") {
     // 文本节点
@@ -17,6 +17,5 @@ export default function monutNativeElement(virtualDOM, container) {
   virtualDOM.children.forEach((child) => {
     mountElement(child, newElement);
   });
-  // 把这个虚拟DOM节点树，转化为真实的DOM树之后，插入到文档流中。
-  container.appendChild(newElement);
+  return newElement;
 }

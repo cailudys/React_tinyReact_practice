@@ -1,4 +1,4 @@
-import monutNativeElement from "./mountBatuveElement";
+import monutNativeElement from "./mountNativeElement";
 
 /**
  * mountElement方法的作用：
