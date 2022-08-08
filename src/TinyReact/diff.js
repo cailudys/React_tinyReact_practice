@@ -1,4 +1,5 @@
 import mountElement from "./mountElement";
+import updateTextNode from "./updateTextNode";
 
 /**
  * diff方法的作用：
@@ -14,9 +15,21 @@ import mountElement from "./mountElement";
  * @param {*} oldDOM  旧的virtualDOM树
  */
 export default function diff(virtualDOM, container, oldDOM) {
+  const oldVirtualDOM = oldDOM && oldDOM._virtualDOM;
   // 1. 判断oldDOM是否存在
   if (!oldDOM) {
     // 2. 用mountElement方法分别处理 是普通虚拟节点 还是 组件。
     mountElement(virtualDOM, container);
+  } else if (oldVirtualDOM && virtualDOM.type === oldVirtualDOM.type) {
+    if (virtualDOM.type === "text") {
+      // 更新内容
+      updateTextNode(virtualDOM, oldVirtualDOM, oldDOM);
+    } else {
+      // 更新元素属性
+    }
+
+    virtualDOM.children.forEach((child, i) => {
+      diff(child, oldDOM, oldDOM.childNodes[i]);
+    });
   }
 }

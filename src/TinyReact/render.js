@@ -13,6 +13,10 @@ import diff from "./diff";
  * @param {*} container 当前virtualDOM要挂载到的容器（一个真实DOM）
  * @param {*} oldDOM  旧的virtualDOM树
  */
-export default function render(virtualDOM, container, oldDOM) {
+export default function render(
+  virtualDOM,
+  container,
+  oldDOM = container.firstChild
+) {
   diff(virtualDOM, container, oldDOM);
 }
