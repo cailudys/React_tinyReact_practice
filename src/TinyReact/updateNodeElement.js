@@ -3,25 +3,55 @@
  * 给真实DOM添加属性
  */
 
-export default function updateNodeElement(newElement, virtualDOM) {
+export default function updateNodeElement(
+  newElement,
+  virtualDOM,
+  oldVirtualDOM = {}
+) {
   // 获取节点对应的属性对象
-  const newProps = virtualDOM.props;
+  const newProps = virtualDOM.props || {};
+  // 获取就的节点属性对象
+  const oldProps = oldVirtualDOM.props || {};
+
   Object.keys(newProps).forEach((propName) => {
     // 获取属性值
-    const newPropsVlue = newProps[propName];
-    // 判断属性是否是事件属性 onClick -> click
-    if (propName.slice(0, 2) === "on") {
-      // 事件名称
-      const eventName = propName.toLowerCase().slice(2);
-      // 为元素添加事件
-      newElement.addEventListener(eventName, newPropsVlue);
-    } else if (propName === "value" || propName === "checked") {
-      newElement[propName] = newPropsVlue;
-    } else if (propName !== "children") {
-      if (propName === "className") {
-        newElement.setAttribute("class", newPropsVlue);
-      } else {
-        newElement.setAttribute(propName, newPropsVlue);
+    const newPropsValue = newProps[propName];
+    const oldPropsValue = oldProps[propName];
+    if (newPropsValue !== oldPropsValue) {
+      // 判断属性是否是事件属性 onClick -> click
+      if (propName.slice(0, 2) === "on") {
+        // 事件名称
+        const eventName = propName.toLowerCase().slice(2);
+        // 为元素添加事件
+        newElement.addEventListener(eventName, newPropsValue);
+        // 删除原有的事件的处理函数
+        if (oldPropsValue) {
+          newElement.removeEventListener(eventName, oldPropsValue);
+        }
+      } else if (propName === "value" || propName === "checked") {
+        newElement[propName] = newPropsValue;
+      } else if (propName !== "children") {
+        if (propName === "className") {
+          newElement.setAttribute("class", newPropsValue);
+        } else {
+          newElement.setAttribute(propName, newPropsValue);
+        }
+      }
+    }
+  });
+  // 判断属性被删除的情况
+  Object.keys(oldProps).forEach((propName) => {
+    const newPropsValue = newProps[propName];
+    const oldPropsValue = oldProps[propName];
+    if (!newPropsValue) {
+      // 走到这说明属性被删除了
+      // 如果属性是事件属性，那么还需要删除对应的事件
+      // 如果属性是普通属性，直接removeAttribute删除对应的属性就行。
+      if (propName.slice(0, 2) === "on") {
+        const eventName = propName.toLowerCase().slice(2);
+        newElement.removeEventListener(eventName, oldPropsValue);
+      } else if (propName !== "children") {
+        newElement.removeAttribute(propName);
       }
     }
   });
