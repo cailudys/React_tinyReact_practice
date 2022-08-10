@@ -1,3 +1,4 @@
+import diff from "./diff";
 export default class Component {
   constructor(props) {
     this.props = props;
@@ -15,6 +16,11 @@ export default class Component {
     let virtualDOM = this.render();
     // 获取旧的 virtualDOM 对象进行比对
     let oldDOM = this.getDOM();
+
+    // 获取容器
+    let container = oldDOM.parentNode;
+    // 新旧对比
+    diff(virtualDOM, container, oldDOM);
   }
   // 在component类中定义一个方法，这个方法的名字叫做setDOM，通过setDOM方法，可以把这个DOM对象存在Component类的实例对象(也就是组件)当中。
   setDOM(dom) {
