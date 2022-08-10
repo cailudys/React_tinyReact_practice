@@ -10,4 +10,9 @@ export default function monutNativeElement(virtualDOM, container) {
   container.appendChild(newElement);
 
   // 要在monutNativeElement的时候调用setDOM方法，通过这个方法把DOM对象存储到 Component类的实例对象当中。
+  // 因为setDOM方法是类的方法，所有需要通过类的实例对象去调用，那么就得拿到Component类的实例对象
+  let component = virtualDOM.component;
+  if (component) {
+    component.setDOM(newElement);
+  }
 }
