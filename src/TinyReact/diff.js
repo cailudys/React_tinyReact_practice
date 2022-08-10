@@ -1,6 +1,8 @@
+import createDOMElement from "./createDOMElement";
 import mountElement from "./mountElement";
 import updateNodeElement from "./updateNodeElement";
 import updateTextNode from "./updateTextNode";
+import unmountNode from "./unmountNode";
 
 /**
  * diff方法的作用：
@@ -21,6 +23,14 @@ export default function diff(virtualDOM, container, oldDOM) {
   if (!oldDOM) {
     // 2. 用mountElement方法分别处理 是普通虚拟节点 还是 组件。
     mountElement(virtualDOM, container);
+    // 如果节点类型不同的处理情况（要刨除virtualDOM是组件的情况）
+  } else if (
+    virtualDOM.type !== oldVirtualDOM.type &&
+    typeof virtualDOM !== "function"
+  ) {
+    // 使用virtualDOM 去创建一个新的virtualDOM对象。
+    const newElement = createDOMElement(virtualDOM);
+    oldDOM.parentNode.replaceChild(newElement, oldDOM);
   } else if (oldVirtualDOM && virtualDOM.type === oldVirtualDOM.type) {
     /**
      * 首先处理 虚拟DOM {types,props,children} 类型不变的情况下:
@@ -37,8 +47,24 @@ export default function diff(virtualDOM, container, oldDOM) {
       updateNodeElement(oldDOM, virtualDOM, oldVirtualDOM);
     }
 
+    // 比对子节点
     virtualDOM.children.forEach((child, i) => {
       diff(child, oldDOM, oldDOM.childNodes[i]);
     });
+
+    // 删除节点
+    // 获取旧节点
+    let oldChildNodes = oldDOM.childNodes;
+    // 判断旧节点的数量
+    if (oldChildNodes.length > virtualDOM.children.length - 1) {
+      // console.log("执行了");
+      for (
+        let i = oldChildNodes.length - 1;
+        i > virtualDOM.children.length - 1;
+        i--
+      ) {
+        unmountNode(oldChildNodes[i]);
+      }
+    }
   }
 }
